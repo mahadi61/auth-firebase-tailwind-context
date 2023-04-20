@@ -1,4 +1,9 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  sendEmailVerification,
+  signInWithPopup,
+} from "firebase/auth";
 import React from "react";
 import { Link } from "react-router-dom";
 import app from "../firebase/firebase.config";
@@ -12,7 +17,17 @@ const Login = () => {
     signInWithPopup(auth, googleProvider)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        emailVerification(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const emailVerification = (user) => {
+    sendEmailVerification(user)
+      .then((result) => {
+        console.log("Email send");
       })
       .catch((error) => {
         console.log(error);
@@ -63,7 +78,7 @@ const Login = () => {
             <div className="form-control mt-3">
               <button
                 onClick={handleGoogleSingIn}
-                class="btn btn-outline hover:btn-primary"
+                className="btn btn-outline hover:btn-primary"
               >
                 <img
                   className="w-5 mx-2"
