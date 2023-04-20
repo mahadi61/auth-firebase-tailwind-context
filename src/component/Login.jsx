@@ -1,7 +1,24 @@
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import React from "react";
 import { Link } from "react-router-dom";
+import app from "../firebase/firebase.config";
 
 const Login = () => {
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  const handleGoogleSingIn = (event) => {
+    event.preventDefault();
+    signInWithPopup(auth, googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col">
@@ -43,6 +60,19 @@ const Login = () => {
             <Link to={"/register"} className="label-text-alt link link-hover">
               New to Login Master? Please Register
             </Link>
+            <div className="form-control mt-3">
+              <button
+                onClick={handleGoogleSingIn}
+                class="btn btn-outline hover:btn-primary"
+              >
+                <img
+                  className="w-5 mx-2"
+                  alt="Google login"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svog.png"
+                />
+                Login with Google
+              </button>
+            </div>
           </form>
         </div>
       </div>
