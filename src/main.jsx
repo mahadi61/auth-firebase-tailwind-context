@@ -7,6 +7,8 @@ import Login from "./component/Login";
 import Register from "./component/Register";
 import AuthProviders from "./contex/AuthProviders";
 import HomePage from "./component/HomePage";
+import Orders from "./component/Orders";
+import PrivetRoute from "./privetRoute/PrivetRoute";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,14 @@ const router = createBrowserRouter([
       {
         path: "/home-page",
         element: <HomePage></HomePage>,
+      },
+      {
+        path: "/order",
+        element: (
+          <PrivetRoute>
+            <Orders></Orders>
+          </PrivetRoute>
+        ),
       },
       {
         path: "/login",

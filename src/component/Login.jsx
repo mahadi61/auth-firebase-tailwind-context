@@ -14,7 +14,7 @@ const Login = () => {
 
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
-
+  // normal sing in
   const handleGoogleSingIn = (event) => {
     event.preventDefault();
     signInWithPopup(auth, googleProvider)
@@ -36,7 +36,7 @@ const Login = () => {
         console.log(error);
       });
   };
-
+  // using context api
   const handleLogin = (event) => {
     event.preventDefault();
     const email = event.target.email.value;
@@ -44,6 +44,7 @@ const Login = () => {
     singIn(email, password)
       .then((result) => {
         console.log(result.user);
+        event.target.reset();
       })
       .catch((error) => {
         console.log(error);
